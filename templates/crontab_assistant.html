@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <title>Crontab Assistant</title>
+</head>
+<body>
+    <h1>Crontab Assistant</h1>
+    {% if message %}
+        <p><strong>{{ message }}</strong></p>
+    {% endif %}
+    <h2>Add a Cron Job</h2>
+    <form method="post">
+        <input type="hidden" name="action" value="add">
+        Command: <input type="text" name="command" required><br>
+        Schedule: <input type="text" name="schedule" value="* * * * *" required><br>
+        <input type="submit" value="Add Cron Job">
+    </form>
+
+    <h2>Remove a Cron Job</h2>
+    <form method="post">
+        <input type="hidden" name="action" value="remove">
+        Command: <input type="text" name="command" required><br>
+        <input type="submit" value="Remove Cron Job">
+    </form>
+
+    <h2>Existing Cron Jobs</h2>
+    {% if cron_jobs %}
+        <ul>
+            {% for job in cron_jobs %}
+                <li>{{ job }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No cron jobs found.</p>
+    {% endif %}
+
+    {% if crontab_text %}
+        <h2>Current Crontab</h2>
+        <pre>{{ crontab_text }}</pre>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Process and Services Analyzer</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f7;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        select, textarea, input[type="submit"] {
+            width: 100%;
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 200px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        /* Analysis Section */
+        .analysis {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 20px auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .analysis h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .analysis ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        /* Examples Section */
+        .examples {
+            max-width: 800px;
+            margin: 40px auto 0 auto;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .examples h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .examples p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .examples ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .examples li {
+            margin-bottom: 30px;
+        }
+
+        .examples strong {
+            display: block;
+            font-size: 18px;
+            color: #34495e;
+        }
+
+        .examples em {
+            display: block;
+            margin-top: 5px;
+            color: #7f8c8d;
+            font-style: normal;
+        }
+
+        /* Code Styling */
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+            font-size: 90%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            form, .analysis, .examples {
+                padding: 15px;
+            }
+
+            label, input[type="submit"] {
+                font-size: 14px;
+            }
+
+            textarea {
+                height: 150px;
+            }
+        }
+    </style>
+
+    <!-- JavaScript to handle visibility of log file content -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var commandTypeSelect = document.getElementById('command_type');
+            var commandOutputLabel = document.getElementById('command_output_label');
+            var commandOutputTextarea = document.getElementById('command_output');
+            var logContentLabel = document.getElementById('log_content_label');
+            var logContentTextarea = document.getElementById('log_content');
+
+            function toggleInputFields() {
+                if (commandTypeSelect.value === 'logfile') {
+                    commandOutputLabel.style.display = 'none';
+                    commandOutputTextarea.style.display = 'none';
+                    logContentLabel.style.display = 'block';
+                    logContentTextarea.style.display = 'block';
+                } else {
+                    commandOutputLabel.style.display = 'block';
+                    commandOutputTextarea.style.display = 'block';
+                    logContentLabel.style.display = 'none';
+                    logContentTextarea.style.display = 'none';
+                }
+            }
+
+            commandTypeSelect.addEventListener('change', toggleInputFields);
+            toggleInputFields();  // Initialize on page load
+        });
+    </script>
+</head>
+<body>
+    <h1>Process and Services Analyzer</h1>
+    <form method="post">
+        <label for="command_type">Select Command Type:</label>
+        <select name="command_type" id="command_type">
+            <option value="ps">ps</option>
+            <option value="systemctl">systemctl</option>
+            <option value="service">service</option>
+            <option value="logfile">Log File</option> <!-- New option for log file -->
+        </select>
+
+        <!-- For normal commands -->
+        <label for="command_output" id="command_output_label">Paste Command Output Below:</label>
+        <textarea name="command_output" id="command_output" placeholder="Paste output here..."></textarea>
+
+        <!-- For log file analysis -->
+        <label for="log_content" id="log_content_label" style="display:none;">Paste Log File Content Below:</label>
+        <textarea name="log_content" id="log_content" placeholder="Paste log file content here..." style="display:none;"></textarea>
+
+        <input type="submit" value="Analyze">
+    </form>
+
+    {% if analysis %}
+    <div class="analysis">
+        {{ analysis|safe }}
+    </div>
+    {% endif %}
+
+    <div class="examples">
+        <h2>Examples:</h2>
+        <p>To use the analyzer, run one of the following commands on your Linux system and paste the output into the text area above:</p>
+        <ul>
+            <li>
+                <strong>1. <code>ps aux --no-heading</code></strong>
+                <em>Description:</em> This command lists all running processes without the header line. It provides detailed information about each process, including CPU and memory usage. Use this output to analyze process resource consumption, identify high-usage processes, and detect zombie processes.
+            </li>
+            <li>
+                <strong>2. <code>systemctl list-units --all --type=service --no-pager</code></strong>
+                <em>Description:</em> This command displays all systemd services, including those that are active, inactive, or failed. Use this output to identify services that may not be running as expected or have encountered errors.
+            </li>
+            <li>
+                <strong>3. <code>service --status-all</code></strong>
+                <em>Description:</em> This command shows the status of all services managed by the SysV init system. It lists services that are running, stopped, or in an unknown state. Use this output to check the overall status of services on your system.
+            </li>
+            <li>
+                <strong>4. <code>cat /var/log/syslog</code></strong> <!-- New example for log file -->
+                <em>Description:</em> This command shows the contents of the syslog file. Copy and paste the output into the log file analyzer to detect errors, warnings, and other important events in the system logs.
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
