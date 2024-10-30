@@ -19,7 +19,7 @@
         body, html {
             height: 100%;
             margin: 0;
-            display: display-box;
+            display: display-box; /* Changed from display-box to flex */
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
@@ -406,6 +406,17 @@
             <button onclick="searchByCategory('firewall')">Firewall</button>
             <!-- HANA category button -->
             <button onclick="searchByCategory('hana')">HANA</button>
+            
+            <!-- New Category Buttons Added Below -->
+            <button onclick="searchByCategory('troubleshooting')">Troubleshooting</button>
+            <button onclick="searchByCategory('management')">management</button>
+            <button onclick="searchByCategory('security')">Security</button>
+            <button onclick="searchByCategory('filesystem')">Filesystem</button>
+            <button onclick="searchByCategory('logging')">Logging</button>
+            <button onclick="searchByCategory('system_info')">System Info</button>
+            <button onclick="searchByCategory('networking')">Networking</button>
+            <button onclick="searchByCategory('virtualization')">Virtualization</button>
+            <button onclick="searchByCategory('backup')">Backup</button>
         </div>
 
         <!-- Search input for custom queries -->

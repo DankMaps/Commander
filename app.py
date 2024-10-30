@@ -5,18 +5,23 @@ from flask_migrate import Migrate  # Optional for migrations
 from process_analyzer import process_analyzer
 from crontab_assistant import crontab_assistant, add_cron_job, list_cron_jobs, remove_cron_job
 from commands import commands  # Import the commands from commands.py
+from reboot import reboot_bp  # Import the reboot Blueprint
 
 app = Flask(__name__)
 
 # Configure the SQLite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///favorites.db'  # SQLite database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disable modification tracking
+app.config['SECRET_KEY'] = 'your_secret_key_here'  # Needed for flash messages
 
 # Initialize the database
 db = SQLAlchemy(app)
 
 # Initialize Flask-Migrate (optional)
 migrate = Migrate(app, db)
+
+# Register the reboot Blueprint
+app.register_blueprint(reboot_bp)
 
 # Define the Favorite model
 class Favorite(db.Model):
@@ -81,6 +86,16 @@ def delete_favorite(favorite_id):
     db.session.delete(favorite)
     db.session.commit()
     return jsonify({'message': 'Favorite deleted successfully.'}), 200
+
+# ----------------------------
+# New Route for Category-Based Filtering
+# ----------------------------
+
+@app.route("/category/<string:category_name>", methods=["GET"])
+def get_commands_by_category(category_name):
+    """Retrieve commands based on the specified category."""
+    result = [cmd for cmd in commands if cmd["category"].lower() == category_name.lower()]
+    return jsonify(result), 200
 
 # ----------------------------
 

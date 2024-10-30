@@ -1,4 +1,5 @@
 commands = [
+    # SAP HANA Commands
     {"command": "HDB info", "description": "Displays information about the running HANA database instances.", "category": "hana"},
     {"command": "HDB version", "description": "Shows the HANA database version and build information.", "category": "hana"},
     {"command": "HDB start", "description": "Start the SAP HANA system (from the system admin user).", "category": "hana"},
@@ -7,13 +8,11 @@ commands = [
     {"command": "/usr/sap/<SID>/home/HDBSettings.sh", "description": "View or update configuration settings for HANA.", "category": "hana"},
     {"command": "xs apps", "description": "List of applications deployed in HANA's XS engine.", "category": "hana"},
     {"command": "xs app logs <app-name>", "description": "Check logs for specific XS applications.", "category": "hana"},
-    {"command": "free -h", "description": "Display free and used memory in human-readable format.", "category": "hana"},
-    {"command": "top", "description": "View the processes and their CPU/memory usage (includes HANA processes).", "category": "hana"},
     {"command": "ps -ef | grep hdb", "description": "View HANA process tree.", "category": "hana"},
-    {"command": "df -h", "description": "View disk usage.", "category": "hana"},
     {"command": "ps aux | grep hdb", "description": "Check HANA process list.", "category": "hana"},
     {"command": "sapcontrol -nr <instance_number> -function GetProcessList", "description": "View HANA services (from the Linux terminal).", "category": "hana"},
-    {"command": "ifconfig", "description": "Display or configure network interfaces (deprecated, use ip instead).", "category": "network"},
+
+    # Network Commands
     {"command": "ip a", "description": "Show all IP addresses and network interfaces.", "category": "network"},
     {"command": "ip link set interface up/down", "description": "Enable/disable a network interface.", "category": "network"},
     {"command": "ping hostname", "description": "Send ICMP echo requests to test network connectivity.", "category": "network"},
@@ -69,7 +68,6 @@ commands = [
     {"command": "fail2ban-client status sshd", "description": "Show status of SSH jail in fail2ban.", "category": "network"},
     {"command": "fail2ban-client set sshd unbanip <ip-address>", "description": "Manually unban an IP in fail2ban.", "category": "network"},
     {"command": "ssh-keygen -t rsa -b 4096", "description": "Generate an RSA key pair.", "category": "network"},
-    {"command": "scp file user@remote_host:/path", "description": "Copy file via SSH.", "category": "network"},
     {"command": "rsync -avz /local/dir user@remote_host:/remote/dir", "description": "Synchronize directories over SSH.", "category": "network"},
     {"command": "mtr google.com", "description": "Run MTR diagnostic for real-time network diagnostics.", "category": "network"},
     {"command": "iperf3 -s", "description": "Run iperf3 as server for bandwidth testing.", "category": "network"},
@@ -78,7 +76,8 @@ commands = [
     {"command": "strace -p $(pgrep -f sshd)", "description": "Trace SSH daemon using strace.", "category": "network"},
     {"command": "lsof -i :80", "description": "Show processes using port 80.", "category": "network"},
     {"command": "ss -atunp", "description": "Show all TCP/UDP sockets with process names.", "category": "network"},
-    # ... [other existing categories and commands] ...
+
+    # Package Management Commands
     {"command": "apt update", "description": "Update the list of available packages.", "category": "package"},
     {"command": "apt upgrade", "description": "Upgrade all installed packages.", "category": "package"},
     {"command": "apt install package", "description": "Install a new package.", "category": "package"},
@@ -89,12 +88,123 @@ commands = [
     {"command": "snap install package", "description": "Install a package using Snap.", "category": "package"},
     {"command": "snap list", "description": "List installed Snap packages.", "category": "package"},
     {"command": "snap remove package", "description": "Remove a Snap package.", "category": "package"},
-    {"command": "free -h", "description": "Display free and used memory.", "category": "monitoring"},
+
+    # Monitoring Commands
+    {"command": "free -h", "description": "Display free and used memory in human-readable format.", "category": "monitoring"},
     {"command": "uptime", "description": "Show how long the system has been running.", "category": "monitoring"},
     {"command": "dmesg", "description": "Display kernel messages.", "category": "monitoring"},
     {"command": "iostat", "description": "Report CPU and input/output statistics.", "category": "monitoring"},
     {"command": "vmstat", "description": "Report system performance.", "category": "monitoring"},
     {"command": "lsof", "description": "List open files.", "category": "monitoring"},
-    {"command": "df -h", "description": "Report file system disk space usage.", "category": "monitoring"},
-    {"command": "iotop", "description": "Monitor I/O usage by processes.", "category": "monitoring"}
+    {"command": "iotop", "description": "Monitor I/O usage by processes.", "category": "monitoring"},
+
+    # File Management Commands
+    {"command": "ls", "description": "List directory contents.", "category": "file"},
+    {"command": "cp source destination", "description": "Copy files or directories.", "category": "file"},
+    {"command": "mv source destination", "description": "Move or rename files and directories.", "category": "file"},
+    {"command": "rm file", "description": "Remove files.", "category": "file"},
+    {"command": "rm -r directory", "description": "Remove directories recursively.", "category": "file"},
+    {"command": "chmod permissions file", "description": "Change file permissions.", "category": "file"},
+    {"command": "chown user:group file", "description": "Change file owner and group.", "category": "file"},
+    {"command": "find /path -name filename", "description": "Find files by name.", "category": "file"},
+    {"command": "du -sh /path", "description": "Display the size of a directory or file.", "category": "file"},
+    {"command": "touch filename", "description": "Create an empty file or update file timestamps.", "category": "file"},
+    {"command": "ln -s target linkname", "description": "Create a symbolic link.", "category": "file"},
+    {"command": "cat file", "description": "Display the contents of a file.", "category": "file"},
+    {"command": "less file", "description": "View file contents one page at a time.", "category": "file"},
+    {"command": "tar -cvf archive.tar files", "description": "Create a tar archive.", "category": "file"},
+    {"command": "tar -xvf archive.tar", "description": "Extract a tar archive.", "category": "file"},
+    {"command": "gzip file", "description": "Compress files with gzip.", "category": "file"},
+    {"command": "gunzip file.gz", "description": "Decompress gzip files.", "category": "file"},
+    {"command": "rsync -av source destination", "description": "Synchronize files and directories between two locations.", "category": "file"},
+
+    # User Management Commands
+    {"command": "adduser username", "description": "Create a new user.", "category": "users"},
+    {"command": "deluser username", "description": "Remove a user account.", "category": "users"},
+    {"command": "usermod -aG group username", "description": "Add a user to a group.", "category": "users"},
+    {"command": "passwd username", "description": "Change user password.", "category": "users"},
+    {"command": "whoami", "description": "Display the current user.", "category": "users"},
+    {"command": "id username", "description": "Display user ID and group ID information.", "category": "users"},
+    {"command": "groups username", "description": "Show group memberships for a user.", "category": "users"},
+    {"command": "su username", "description": "Switch to another user account.", "category": "users"},
+    {"command": "chage -l username", "description": "Display password aging information.", "category": "users"},
+    {"command": "last", "description": "Show the last login of users.", "category": "users"},
+    {"command": "w", "description": "Display who is logged in and their activity.", "category": "users"},
+    {"command": "userdel -r username", "description": "Delete a user and their home directory.", "category": "users"},
+    {"command": "sudo visudo", "description": "Edit the sudoers file to manage user permissions.", "category": "users"},
+
+    # Process Management Commands
+    {"command": "top", "description": "Display real-time processes.", "category": "process"},
+    {"command": "htop", "description": "Interactive process viewer (requires installation).", "category": "process"},
+    {"command": "ps aux", "description": "Display all running processes.", "category": "process"},
+    {"command": "kill PID", "description": "Terminate a process by PID.", "category": "process"},
+    {"command": "killall processname", "description": "Terminate all processes by name.", "category": "process"},
+    {"command": "pkill processname", "description": "Send signals to processes by name.", "category": "process"},
+    {"command": "nice -n priority command", "description": "Run a command with a specified priority.", "category": "process"},
+    {"command": "renice priority PID", "description": "Change the priority of a running process.", "category": "process"},
+    {"command": "service servicename start/stop/restart/status", "description": "Manage services.", "category": "process"},
+    {"command": "systemctl start/stop servicename", "description": "Start/stop a service.", "category": "process"},
+    {"command": "systemctl enable/disable servicename", "description": "Enable/disable a service to start at boot.", "category": "process"},
+    {"command": "systemctl status servicename", "description": "Check the status of a service.", "category": "process"},
+    {"command": "journalctl -xe", "description": "View system logs.", "category": "process"},
+    {"command": "pgrep processname", "description": "Get the PID of a process by name.", "category": "process"},
+    # Suggested Additional Commands for Troubleshooting, Monitoring, and Management
+    # Troubleshooting Commands
+    {"command": "dstat", "description": "Versatile resource statistics tool replacing vmstat, iostat, netstat, and ifstat.", "category": "troubleshooting"},
+    {"command": "lshw -short", "description": "Lists detailed hardware configuration in a short format.", "category": "troubleshooting"},
+    {"command": "strace -p <PID>", "description": "Trace system calls and signals of a specific process.", "category": "troubleshooting"},
+    {"command": "lspci", "description": "Lists all PCI devices.", "category": "troubleshooting"},
+    {"command": "lsusb", "description": "Lists all USB devices.", "category": "troubleshooting"},
+    {"command": "blkid", "description": "Identifies block devices and their attributes.", "category": "troubleshooting"},
+    {"command": "ncdu /path", "description": "NCurses Disk Usage for viewing disk usage in a user-friendly interface.", "category": "troubleshooting"},
+    
+    # Monitoring Commands
+    {"command": "sar -u 1 3", "description": "Collects and reports CPU usage statistics at 1-second intervals for 3 times.", "category": "monitoring"},
+    {"command": "glances", "description": "An advanced system monitoring tool that provides a comprehensive overview of system metrics.", "category": "monitoring"},
+    {"command": "watch -n 5 df -h", "description": "Executes 'df -h' every 5 seconds to monitor disk space usage in real-time.", "category": "monitoring"},
+    {"command": "systemd-analyze blame", "description": "Analyzes and displays the time taken by each service during system boot.", "category": "monitoring"},
+    {"command": "perf top", "description": "Displays real-time performance profiling of the system.", "category": "monitoring"},
+    
+    # Management Commands
+    {"command": "crontab -e", "description": "Edit the current user's crontab to schedule periodic jobs.", "category": "management"},
+    {"command": "ansible all -m ping", "description": "Use Ansible to ping all managed hosts to check connectivity.", "category": "management"},
+    {"command": "docker ps -a", "description": "List all Docker containers, including stopped ones.", "category": "management"},
+    {"command": "kubectl get pods", "description": "List all pods in the current Kubernetes namespace.", "category": "management"},
+    {"command": "git status", "description": "Show the working tree status in a Git repository.", "category": "management"},
+    {"command": "tmux new -s session_name", "description": "Create a new tmux session named 'session_name'.", "category": "management"},
+    
+    # Security Commands
+    {"command": "fail2ban-client status", "description": "Show the overall status of the Fail2Ban server.", "category": "security"},
+    {"command": "sestatus", "description": "Display the current status of SELinux.", "category": "security"},
+    {"command": "auditctl -l", "description": "List all active audit rules.", "category": "security"},
+    
+    # File System and Storage Commands
+    {"command": "mount /dev/sda1 /mnt", "description": "Mount the filesystem on /dev/sda1 to the /mnt directory.", "category": "filesystem"},
+    {"command": "umount /mnt", "description": "Unmount the filesystem from the /mnt directory.", "category": "filesystem"},
+    {"command": "fdisk /dev/sda", "description": "Start the fdisk utility to manage disk partitions on /dev/sda.", "category": "filesystem"},
+    {"command": "parted /dev/sda", "description": "Start the parted utility for advanced disk partitioning on /dev/sda.", "category": "filesystem"},
+    {"command": "mkfs.ext4 /dev/sda1", "description": "Create an ext4 filesystem on /dev/sda1.", "category": "filesystem"},
+    {"command": "lsblk", "description": "List information about all available or specified block devices.", "category": "filesystem"},
+    
+    # Logging and Log Management Commands
+    {"command": "logrotate /etc/logrotate.conf", "description": "Rotate, compress, and mail system logs based on the configuration.", "category": "logging"},
+    {"command": "grep 'error' /var/log/syslog | awk '{print $5}'", "description": "Search for 'error' in syslog and extract the fifth field using awk.", "category": "logging"},
+    
+    # System Information Commands
+    {"command": "uname -a", "description": "Display all system information including kernel version and hardware details.", "category": "system_info"},
+    {"command": "lsb_release -a", "description": "Display Linux distribution information.", "category": "system_info"},
+    {"command": "hostname", "description": "Show or set the system's hostname.", "category": "system_info"},
+    
+    # Advanced Networking Tools
+    {"command": "bpftrace -e 'kprobe:sys_clone { printf(\"Process cloned\\n\"); }'", "description": "Use BPFTrace to trace the 'sys_clone' kernel probe and print a message when a process is cloned.", "category": "networking"},
+    {"command": "ipvsadm -L -n", "description": "List IP Virtual Server configurations numerically.", "category": "networking"},
+    {"command": "curl -X POST -d 'param=value' http://example.com", "description": "Send a POST request with data to a specified URL using cURL.", "category": "networking"},
+    
+    # Virtualization Commands
+    {"command": "virsh list --all", "description": "List all virtual machines managed by libvirt, including inactive ones.", "category": "virtualization"},
+    {"command": "qemu-img create -f qcow2 disk.img 10G", "description": "Create a new QEMU disk image named 'disk.img' with a size of 10GB.", "category": "virtualization"},
+    
+    # Backup and Recovery Commands
+    {"command": "tar --create --file=backup.tar --listed-incremental=snapshot.file /path/to/directory", "description": "Create an incremental backup of a directory using tar.", "category": "backup"},
+    {"command": "rsnapshot daily", "description": "Run rsnapshot to perform a daily filesystem snapshot based on configuration.", "category": "backup"},
 ]
