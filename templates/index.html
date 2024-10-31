@@ -393,6 +393,11 @@
             <img src="{{ url_for('static', filename='images/4.png') }}" alt="Image 1" style="height: 350px; vertical-align: bottom;">
         </h1>
 
+        <div class="nav-buttons">
+            <button onclick="window.location.href='/reboot'">System Reboot</button>
+            <button onclick="window.location.href='/process_analyzer'">Process Analyzer</button>
+        </div>
+
         <!-- Pre-populated category buttons -->
         <div class="category-buttons">
             <button onclick="searchByCategory('memory')">Memory</button>
@@ -408,14 +413,9 @@
             <button onclick="searchByCategory('hana')">HANA</button>
             
             <!-- New Category Buttons Added Below -->
-            <button onclick="searchByCategory('troubleshooting')">Troubleshooting</button>
-            <button onclick="searchByCategory('management')">management</button>
             <button onclick="searchByCategory('security')">Security</button>
             <button onclick="searchByCategory('filesystem')">Filesystem</button>
-            <button onclick="searchByCategory('logging')">Logging</button>
             <button onclick="searchByCategory('system_info')">System Info</button>
-            <button onclick="searchByCategory('networking')">Networking</button>
-            <button onclick="searchByCategory('virtualization')">Virtualization</button>
             <button onclick="searchByCategory('backup')">Backup</button>
         </div>
 

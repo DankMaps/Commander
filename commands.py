@@ -164,7 +164,8 @@ commands = [
     {"command": "watch -n 5 df -h", "description": "Executes 'df -h' every 5 seconds to monitor disk space usage in real-time.", "category": "monitoring"},
     {"command": "systemd-analyze blame", "description": "Analyzes and displays the time taken by each service during system boot.", "category": "monitoring"},
     {"command": "perf top", "description": "Displays real-time performance profiling of the system.", "category": "monitoring"},
-    
+    {"command": "iotop -o", "description": "Displays I/O usage by processes with disk I/O in real-time.", "category": "monitoring"},
+
     # Management Commands
     {"command": "crontab -e", "description": "Edit the current user's crontab to schedule periodic jobs.", "category": "management"},
     {"command": "ansible all -m ping", "description": "Use Ansible to ping all managed hosts to check connectivity.", "category": "management"},
@@ -199,12 +200,88 @@ commands = [
     {"command": "bpftrace -e 'kprobe:sys_clone { printf(\"Process cloned\\n\"); }'", "description": "Use BPFTrace to trace the 'sys_clone' kernel probe and print a message when a process is cloned.", "category": "networking"},
     {"command": "ipvsadm -L -n", "description": "List IP Virtual Server configurations numerically.", "category": "networking"},
     {"command": "curl -X POST -d 'param=value' http://example.com", "description": "Send a POST request with data to a specified URL using cURL.", "category": "networking"},
-    
+    # In commands.py, ensure these commands use consistent categories:
+
+    # System commands (change category from system_info to system)
+    {"command": "uname -a", "description": "Display all system information including kernel version and hardware details.", "category": "system"},
+    {"command": "lsb_release -a", "description": "Display Linux distribution information.", "category": "system"},
+    {"command": "hostname", "description": "Show or set the system's hostname.", "category": "system"},
+
+    # Management commands remain as is
+    {"command": "crontab -e", "description": "Edit the current user's crontab to schedule periodic jobs.", "category": "management"},
+    {"command": "ansible all -m ping", "description": "Use Ansible to ping all managed hosts to check connectivity.", "category": "management"},
+
+    # Troubleshooting commands remain as is
+    {"command": "dstat", "description": "Versatile resource statistics tool.", "category": "troubleshooting"},
+    {"command": "lshw -short", "description": "Lists detailed hardware configuration.", "category": "troubleshooting"},
+
     # Virtualization Commands
     {"command": "virsh list --all", "description": "List all virtual machines managed by libvirt, including inactive ones.", "category": "virtualization"},
     {"command": "qemu-img create -f qcow2 disk.img 10G", "description": "Create a new QEMU disk image named 'disk.img' with a size of 10GB.", "category": "virtualization"},
     
+    # Additional commands to append to the list:
+    # Process Management category:
+    {"command": "pstree", "description": "Display running processes as a tree structure.", "category": "process"},
+    {"command": "fuser -k port/tcp", "description": "Kill process using specified TCP port.", "category": "process"},
+    {"command": "schedtool -B pid", "description": "Set CPU scheduling policy.", "category": "process"},
+    {"command": "taskset -pc 0-2 pid", "description": "Set CPU affinity for process.", "category": "process"},
+
+    # File Management category:
+    {"command": "lsattr", "description": "List file attributes on Linux filesystem.", "category": "file"},
+    {"command": "chattr +i file", "description": "Make file immutable.", "category": "file"},
+    {"command": "fuser file", "description": "Identify processes using file.", "category": "file"},
+    {"command": "dd if=/dev/zero of=file bs=1M count=100", "description": "Create file of specific size.", "category": "file"},
+
+    # Monitoring category:
+    {"command": "pidstat", "description": "Report CPU/memory statistics for processes.", "category": "monitoring"},
+    {"command": "sysstat", "description": "System performance tools collection.", "category": "monitoring"},
+    {"command": "atop", "description": "Advanced system & process monitor.", "category": "monitoring"},
+    {"command": "nmon", "description": "Performance monitoring tool.", "category": "monitoring"},
+
+    # Network category:
+    {"command": "tc qdisc", "description": "Configure traffic control queuing discipline.", "category": "network"},
+    {"command": "ipcalc", "description": "Perform IP subnet calculations.", "category": "network"},
+    {"command": "ethtool -S interface", "description": "Show network interface statistics.", "category": "network"},
+    {"command": "brctl show", "description": "Show network bridge information.", "category": "network"},
+
+    # Package category:
+    {"command": "apt-file search filename", "description": "Search for file in packages.", "category": "package"},
+    {"command": "apt-mark hold package", "description": "Prevent package from being upgraded.", "category": "package"},
+    {"command": "dpkg-reconfigure package", "description": "Reconfigure installed package.", "category": "package"},
+    {"command": "apt-cache policy package", "description": "Display package installation candidate.", "category": "package"},
+    
+
+    # System Maintenance
+    {"command": "updatedb", "description": "Update the locate database for finding files quickly.", "category": "system"},
+    {"command": "sync", "description": "Synchronize cached writes to persistent storage.", "category": "system"},
+    {"command": "swapoff -a && swapon -a", "description": "Clear swap space by disabling and re-enabling it.", "category": "system"},
+    {"command": "ldconfig", "description": "Update shared library cache.", "category": "system"},
+    
+    # Diagnostics
+    {"command": "smartctl -a /dev/sda", "description": "Show SMART status of hard drive for potential failures.", "category": "diagnostics"},
+    {"command": "dmidecode", "description": "Display hardware info from BIOS/EFI.", "category": "diagnostics"},
+    {"command": "journalctl -p err", "description": "Show only error messages from system logs.", "category": "diagnostics"},
+    {"command": "sosreport", "description": "Collect system configuration and diagnostic information.", "category": "diagnostics"},
+    
+    # Security
+    {"command": "chroot /mnt/system", "description": "Change root directory, useful for system recovery.", "category": "security"},
+    {"command": "ausearch -k auth", "description": "Search audit logs for authentication events.", "category": "security"},
+    {"command": "PAM_AUTH_UPDATE", "description": "Configure PAM authentication modules.", "category": "security"},
+    {"command": "lynis audit system", "description": "Perform security audit of the system.", "category": "security"},
+    
+    # Storage Management
+    {"command": "lvextend -L +10G /dev/vg/lv", "description": "Extend logical volume size.", "category": "storage"},
+    {"command": "vgdisplay", "description": "Display volume group information.", "category": "storage"},
+    {"command": "xfs_repair /dev/sda1", "description": "Repair XFS filesystem.", "category": "storage"},
+    {"command": "tune2fs -l /dev/sda1", "description": "Display/tune ext filesystem parameters.", "category": "storage"},
+    
+    # Process Control
+    {"command": "taskset -c 0,1 process_name", "description": "Set/retrieve CPU affinity of a process.", "category": "process"},
+    {"command": "ionice -c 2 -n 0 command", "description": "Run command with best-effort I/O priority.", "category": "process"},
+    {"command": "schedtool -B process_id", "description": "Set scheduling policy for a process.", "category": "process"},
+    {"command": "chrt --rr 99 command", "description": "Run command with real-time priority.", "category": "process"},
+
     # Backup and Recovery Commands
     {"command": "tar --create --file=backup.tar --listed-incremental=snapshot.file /path/to/directory", "description": "Create an incremental backup of a directory using tar.", "category": "backup"},
-    {"command": "rsnapshot daily", "description": "Run rsnapshot to perform a daily filesystem snapshot based on configuration.", "category": "backup"},
+    {"command": "rsnapshot daily", "description": "Run rsnapshot to perform a daily filesystem snapshot based on configuration.", "category": "backup"}
 ]

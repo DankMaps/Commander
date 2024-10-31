@@ -156,6 +156,34 @@
         }
     </style>
 
+<style>
+    .nav-buttons {
+        text-align: center;
+        margin: 20px 0;
+    </style>
+
+    <div class="nav-buttons">
+        <button onclick="window.location.href='/'">Home</button>
+        <button onclick="window.location.href='/reboot'">Reboot</button>
+    </div>
+    <style>
+    .nav-buttons button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        font-size: 16px;
+    }
+    
+    .nav-buttons button:hover {
+        background-color: #2980b9;
+    }
+</style>
+
     <!-- JavaScript to handle visibility of log file content -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
